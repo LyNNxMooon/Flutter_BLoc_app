@@ -16,33 +16,32 @@ class ToDoHiveModel {
   //Create
 
   void saveToDoTask(ToDoTask task) {
-    List<ToDoTask> currentList = getToDoTaskList();
+    List currentList = getToDoTaskList();
     currentList.add(task);
 
-    _hiveDao.saveToDoTaskList(currentList);
+    _hiveDao.saveToDoTaskList(currentList.cast<ToDoTask>());
   }
 
   //Read
 
-  List<ToDoTask> getToDoTaskList() =>
-      _hiveDao.getToDoTaskList() ?? <ToDoTask>[sampleTask];
+  List getToDoTaskList() => _hiveDao.getToDoTaskList() ?? [sampleTask];
 
   //Update
   void updateToDoTask(ToDoTask task, int index) {
-    List<ToDoTask> currentList = getToDoTaskList();
+    List currentList = getToDoTaskList();
 
     currentList[index] = task;
 
-    _hiveDao.updateToDoTaskList(currentList);
+    _hiveDao.updateToDoTaskList(currentList.cast<ToDoTask>());
   }
 
   //Delete
 
   void deleteToDoTask(ToDoTask task) {
-    List<ToDoTask> currentList = getToDoTaskList();
+    List currentList = getToDoTaskList();
 
     currentList.remove(task);
 
-    _hiveDao.updateToDoTaskList(currentList);
+    _hiveDao.updateToDoTaskList(currentList.cast<ToDoTask>());
   }
 }

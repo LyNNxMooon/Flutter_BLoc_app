@@ -12,7 +12,7 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Hive.initFlutter();
   Hive.registerAdapter(ToDoTaskAdapter());
-  await Hive.openBox<List<ToDoTask>>(kBoxNameForToDoTask);
+  await Hive.openBox<List>(kBoxNameForToDoTask);
 
   final todoHiveModel = ToDoHiveModel();
   runApp(MyApp(

@@ -6,7 +6,7 @@ abstract class ToDoRepo {
   saveToDoTaskList(List<ToDoTask> tasks);
 
   //Read
-  List<ToDoTask>? getToDoTaskList();
+  List? getToDoTaskList();
 
   //Update
 

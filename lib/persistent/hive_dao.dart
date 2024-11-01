@@ -8,19 +8,17 @@ class HiveDao implements ToDoRepo {
   static final HiveDao _singleton = HiveDao._();
   factory HiveDao() => _singleton;
 
-  Box<List<ToDoTask>> getToDoTasksBox() =>
-      Hive.box<List<ToDoTask>>(kBoxNameForToDoTask);
+  Box<List> getToDoTasksBox() => Hive.box<List>(kBoxNameForToDoTask);
 
   @override
   void deleteToDoTaskList() => getToDoTasksBox().delete(kHiveKeyForToDoTask);
 
   @override
-  List<ToDoTask>? getToDoTaskList() =>
-      getToDoTasksBox().get(kHiveKeyForToDoTask);
-
-  @override
   void saveToDoTaskList(List<ToDoTask> tasks) =>
       getToDoTasksBox().put(kHiveKeyForToDoTask, tasks);
+
+  @override
+  List? getToDoTaskList() => getToDoTasksBox().get(kHiveKeyForToDoTask);
 
   @override
   void updateToDoTaskList(List<ToDoTask> tasks) =>

@@ -20,6 +20,7 @@ class ToDoScreen extends StatelessWidget {
                 foregroundColor: WidgetStatePropertyAll(Colors.white)),
             onPressed: () {
               todoCubit.addToDoTask(_taskController.text);
+              _taskController.clear();
               Navigator.of(context).pop();
             },
             child: Text("Add")),
@@ -31,7 +32,10 @@ class ToDoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 20, 20, 20),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
           onPressed: () => _showAddToDoDialog(context),
           child: const Icon(Icons.add),
         ),
@@ -39,9 +43,7 @@ class ToDoScreen extends StatelessWidget {
           builder: (context, toDos) => ListView.separated(
               itemBuilder: (context, index) =>
                   toDoTileWidget(context, toDos[index], index),
-              separatorBuilder: (context, index) => const SizedBox(
-                    height: 15,
-                  ),
+              separatorBuilder: (context, index) => const SizedBox(),
               itemCount: toDos.length),
         ),
       ),
@@ -69,15 +71,27 @@ class ToDoScreen extends StatelessWidget {
 
   Widget toDoTileWidget(BuildContext context, ToDoTask task, int index) {
     final todoCubit = context.read<ToDoCubit>();
-    return ListTile(
-      title: Text(task.task),
-      leading: Checkbox(
-        value: task.isCompleted,
-        onChanged: (value) => todoCubit.updateToDoTask(task, index),
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: ListTile(
+        tileColor: Colors.black,
+        title: Text(
+          task.task,
+          style: TextStyle(
+              decoration: task.isCompleted
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none),
+        ),
+        leading: Checkbox(
+          checkColor: Colors.black,
+          activeColor: Colors.white,
+          value: task.isCompleted,
+          onChanged: (value) => todoCubit.updateToDoTask(task, index),
+        ),
+        trailing: IconButton(
+            onPressed: () => todoCubit.deleteToDoTask(task),
+            icon: const Icon(Icons.delete)),
       ),
-      trailing: IconButton(
-          onPressed: () => todoCubit.deleteToDoTask(task),
-          icon: const Icon(Icons.delete)),
     );
   }
 }

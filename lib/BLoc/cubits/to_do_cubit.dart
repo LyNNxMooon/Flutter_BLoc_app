@@ -10,9 +10,9 @@ class ToDoCubit extends Cubit<List<ToDoTask>> {
   }
 
   loadToDoTasks() {
-    final toDoList = _todoHiveModel.getToDoTaskList();
+    final List toDoList = _todoHiveModel.getToDoTaskList();
 
-    emit(toDoList);
+    emit(toDoList.cast<ToDoTask>());
   }
 
   addToDoTask(String task) {
